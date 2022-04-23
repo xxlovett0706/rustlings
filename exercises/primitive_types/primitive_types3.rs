@@ -5,7 +5,7 @@
 // I AM NOT DONE
 
 fn main() {
-    let a = ???
+    let a = ["Are we there yet?"; 100];
 
     if a.len() >= 100 {
         println!("Wow, that's a big array!");

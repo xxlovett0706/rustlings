@@ -1,5 +1,5 @@
 // The From trait is used for value-to-value conversions.
-// If From is implemented correctly for a type, the Into trait should work conversely.
+// If From is implemented correctly for a type, the 2 trait should work conversely.
 // You can read more about it at https://doc.rust-lang.org/std/convert/trait.From.html
 #[derive(Debug)]
 struct Person {
@@ -37,6 +37,21 @@ impl Default for Person {
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        let (name, age) = match s.split_once(',') {
+            Some((name, age)) => (name.trim(), age.trim()),
+            _ => return Person::default(),
+        };
+
+        if let Ok(age) = age.parse::<usize>() {
+            if name.len() > 0 {
+                return Person {
+                    name: String::from(name),
+                    age,
+                }
+            }
+        }
+
+        Person::default()
     }
 }
 
